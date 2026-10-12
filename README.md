@@ -24,6 +24,8 @@ Everything else — the "install" on any platform — is just window dressing ar
 
 **iOS will never show your Install button.** Safari doesn't fire the event that makes in-page install prompts appear, so the button stays invisible there. On an iPhone, installing is a gesture: Share → Add to Home Screen.
 
+**In-page install buttons are Chromium-only — aim them carefully.** On desktop, Chromium's install spawns a second, Chromium-managed copy of the app (own window, extension support and all) next to the OS launcher you already used. So the button now shows only on Android, where it's the real install flow. Desktop installs belong to the platform.
+
 **Android gets the fancy install.** Chrome compiles a real WebAPK — the app appears in the app drawer and in Settings, same code as the website.
 
 **On iPhone, installing actually protects your data.** Safari purges website data from regular tabs after about a week, but home-screen-installed web apps are exempt. Install, and the count survives.

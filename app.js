@@ -75,12 +75,21 @@ function reset() {
 
 initDb();
 
-// Chrome/Android fire this once the PWA qualifies as installable.
-// iOS never does — over there it's Share → Add to Home Screen (see README).
+// Chromium fires this once the PWA qualifies as installable. But the
+// in-page Install flow only earns its keep on Android, where it builds a
+// real home-screen app. On desktop it spawns a second, Chromium-managed
+// copy next to the OS launcher — so there the button stays hidden and the
+// platform (Omarchy's launcher, Chrome's own menu) owns installation.
+// iOS never fires this at all: over there it's Share → Add to Home Screen.
+const alreadyInstalled =
+  matchMedia('(display-mode: standalone)').matches ||
+  matchMedia('(display-mode: fullscreen)').matches ||
+  navigator.standalone === true;
+
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   installEvent = e;
-  installBtn.hidden = false;
+  if (!alreadyInstalled && navigator.userAgentData?.mobile) installBtn.hidden = false;
 });
 installBtn.addEventListener('click', () => {
   installEvent?.prompt();

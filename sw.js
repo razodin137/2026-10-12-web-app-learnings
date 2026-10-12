@@ -1,6 +1,6 @@
 // Offline shell: the app keeps working with no network at all.
 // Bump CACHE when you ship changes.
-const CACHE = 'tally-v4';
+const CACHE = 'tally-v5';
 const ASSETS = [
   './',
   './index.html',
