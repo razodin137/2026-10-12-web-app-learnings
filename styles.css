@@ -1,0 +1,109 @@
+/* Hallmark · app-scope: mobile-first app shell · theme: custom night-blue
+   The :root token block is the portable asset — this same file ships
+   unchanged inside a native Android WebView (Capacitor) later. */
+
+:root {
+  color-scheme: dark;
+  --canvas:  oklch(14% 0.01 265);  /* desktop, behind the phone column */
+  --bg:      oklch(19% 0.02 265);  /* the app itself */
+  --surface: oklch(24% 0.02 265);
+  --line:    oklch(31% 0.02 265);
+  --text:    oklch(96% 0.005 265);
+  --muted:   oklch(68% 0.02 265);
+  --accent:  oklch(72% 0.14 250);
+  --radius: 16px;
+  --press: 80ms;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html, body { height: 100%; }
+html { overflow-x: clip; }
+
+body {
+  background: var(--canvas);
+  font: 16px/1.4 system-ui, -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── The phone constraint ──
+   Never wider than 430px, always full viewport height.
+   Real phone: edge-to-edge, notch/home-bar safe.
+   Desktop: the same column, centered, so it reads as a phone. */
+#phone {
+  width: min(100%, 430px);
+  height: 100dvh;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  padding:
+    calc(env(safe-area-inset-top) + 14px)
+    18px
+    calc(env(safe-area-inset-bottom) + 14px);
+}
+
+@media (min-width: 500px) and (min-height: 700px) {
+  body { display: grid; place-items: center; }
+  #phone {
+    height: min(88dvh, 820px);
+    border: 1px solid var(--line);
+    border-radius: 32px;
+    box-shadow: 0 32px 90px oklch(0% 0 0 / 0.55);
+  }
+}
+
+/* ── Header ── */
+header { display: flex; align-items: center; justify-content: space-between; }
+h1 { font-size: 20px; font-weight: 650; letter-spacing: 0.2px; }
+
+#install {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── Counter: the whole screen is the button ── */
+#counter {
+  flex: 1;
+  margin-block: 16px;
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  touch-action: manipulation;   /* kills double-tap-zoom delay */
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform var(--press) ease-out;
+}
+#counter:active { transform: scale(0.985); }
+
+#count {
+  font-size: clamp(72px, 30vw, 132px);
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+#counter small { color: var(--muted); font-size: 13px; }
+
+footer { text-align: center; color: var(--muted); font-size: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  #counter { transition: none; }
+}

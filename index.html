@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+  <title>Tally</title>
+  <meta name="description" content="One-tap counter. A web app that installs on your phone like a native app." />
+  <meta name="theme-color" content="#0b0d11" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="icon-512.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- The app IS the phone screen: one column, never wider than a phone.
+       Real phone: edge-to-edge. Desktop: the same column, centered. -->
+  <main id="phone">
+    <header>
+      <h1>Tally</h1>
+      <button id="install" type="button" hidden>Install</button>
+    </header>
+
+    <button id="counter" type="button" aria-label="Add one to the count">
+      <span id="count">0</span>
+      <small>tap to count &middot; hold to reset</small>
+    </button>
+
+    <footer>
+      <span id="status">saved on this device &middot; works offline</span>
+    </footer>
+  </main>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
