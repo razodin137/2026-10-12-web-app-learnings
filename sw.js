@@ -1,14 +1,18 @@
 // Offline shell: the app keeps working with no network at all.
 // Bump CACHE when you ship changes.
-const CACHE = 'tally-v2';
+const CACHE = 'tally-v4';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
   './app.js',
+  './worker.js',
   './manifest.webmanifest',
   './icon.svg',
   './icon-512.png',
+  './lib/index.mjs',
+  './lib/sqlite3.wasm',
+  './lib/sqlite3-opfs-async-proxy.js',
 ];
 
 self.addEventListener('install', (e) => {

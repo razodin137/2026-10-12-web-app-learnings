@@ -16,6 +16,8 @@ Everything else — the "install" on any platform — is just window dressing ar
 
 **Installing offline is totally possible.** Once the service worker caches the app, it loads with the network fully cut — we tested it, count intact. Only the very first visit needs internet.
 
+**Yes — a real SQLite database runs offline in the page.** SQLite — the same engine inside nearly every phone app — compiles to WebAssembly, and its database file lives in the browser's own private filesystem. The counter literally runs `SELECT COUNT(*)` now; every tap is an `INSERT`. No server ever sees it.
+
 **"Install" and "offline" are different features.** Installing just buys you the icon and a chromeless window. Offline comes from the service worker. A site without one can be installed everywhere and still die in airplane mode.
 
 **Apple doesn't like SVGs — make sure you have a PNG, too.** iOS ignores SVG icons; without an `apple-touch-icon` PNG, an iPhone install gets an ugly screenshot thumbnail instead of the icon. Bonus: the Linux desktop installer scrapes that same PNG for its launcher. One PNG, three platforms.
@@ -56,8 +58,10 @@ Everything else — the "install" on any platform — is just window dressing ar
 | `styles.css` | The look — shared byte-for-byte on every platform |
 | `app.js` | Tap to count, hold to reset, persistence, install button |
 | `sw.js` | The offline magic |
+| `worker.js` | Owns the SQLite database (sync file access is worker-only) |
 | `manifest.webmanifest` | "I am an app" — install data |
 | `icon.svg` + `icon-512.png` | The icon, and the PNG iOS demands |
+| `lib/` | SQLite itself, compiled to run in the browser (vendored from the official package) |
 
 ## Try it
 
@@ -71,5 +75,5 @@ python3 -m http.server 8000
 ## Where this goes next
 
 - **Play Store, no native code:** Bubblewrap turns a hosted PWA into a store-ready Android package from the manifest alone.
-- **Real native powers:** Capacitor drops these same files into a WebView inside an Android app — camera, push, proper haptics — about five lines change.
+- **Real native powers:** Capacitor drops these same files into a WebView inside an Android app — camera, push, proper haptics — about five lines change. Its SQLite plugin runs these same queries on a real native database, so the SQL outlives the web.
 - **The paths we didn't take:** React Native shares your logic but not your CSS; Flutter is another language entirely. Wanting reusable CSS is what pointed here.
