@@ -66,7 +66,7 @@ python3 -m http.server 8000
 # open http://127.0.0.1:8000
 ```
 
-To put it on a phone for real: host it anywhere with HTTPS (Netlify Drop takes 30 seconds), open the link on the phone, add to home screen.
+**It's live:** https://razodin137.github.io/2026-10-12-web-app-learnings/ — open that on a phone, add to home screen, airplane mode, still works.
 
 ## Where this goes next
 
